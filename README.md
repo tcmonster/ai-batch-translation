@@ -1,4 +1,4 @@
-## OpenAI Batch Translation
+## AI Batch Translation
 
 This tool leverages ChatGPT to perform batch translation of text or code files into multiple languages, proving particularly useful for scenarios involving manual internationalization (i18n) development. 
 
