@@ -14,13 +14,13 @@ LANGUAGE_CODES = {
     "俄语": "ru",
     "保加利亚语": "bg",
     "西班牙语": "es",
-    "葡萄牙语": "pt",
-    "越南语": "vi",
+    "葡萄牙语": "pt-BR",
+    "越南语": "vi-VN",
     "阿拉伯语": "ar"
 }
 
 LANGUAGES = list(LANGUAGE_CODES.keys())
 
-DEFAULT_MODEL = "gpt-4o-mini"
+DEFAULT_MODEL = "google/gemini-2.0-flash-001"
 DEFAULT_TEMPERATURE = 0
 DEFAULT_PROMPT_TEMPLATE = "You are a translator, translate the following content into {lang}, only translating the content, paying attention to code formatting."

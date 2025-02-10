@@ -11,7 +11,14 @@ class TranslationService:
         self.client = OpenAI(api_key=self.api_key, base_url=self.base_url)
 
     def count_tokens(self, text, model):
-        encoding = tiktoken.encoding_for_model(model)
+        try:
+            encoding = tiktoken.encoding_for_model(model)
+        except KeyError:
+            # 对于 Gemini 模型，使用 cl100k_base 分词器
+            if 'gemini' in model.lower():
+                encoding = tiktoken.get_encoding('cl100k_base')
+            else:
+                raise
         return len(encoding.encode(text))
 
     def translate(self, input_content, target_language, config):
