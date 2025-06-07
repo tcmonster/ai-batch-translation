@@ -85,13 +85,18 @@ class TerminalUI:
 
 
     def save_translation(self, translated_text, original_file_path, lang):
-        # Split the path into components
-        file_parts = original_file_path.split('.')
-        file_extension = file_parts[-1]  # Get the file extension
+        # Get directory path and filename
+        directory = os.path.dirname(original_file_path)
+        filename = os.path.basename(original_file_path)
+
+        # Split filename parts
+        name_parts = filename.split('.')
+        file_extension = name_parts[-1]  # Get extension
         
-        # Remove the language code and extension
-        # Join all parts except the last two (language and extension)
-        base_file_name = '.'.join(file_parts[:-2])
+        # Find the base name by getting everything before any language code
+        # For example: 'index.zh.mdx' -> 'index'
+        # or 'index.mdx' -> 'index'
+        base_file_name = name_parts[0]
         
         # Get language code from config
         lang_code = LANGUAGE_CODES[lang]
@@ -101,11 +106,14 @@ class TerminalUI:
         
         # Construct new filename with target language code
         output_file_name = f"{base_file_name}{suffix}.{file_extension}"
+
+        # Combine with original directory path
+        output_file_path = os.path.join(directory, output_file_name)
         
-        with open(output_file_name, 'w', encoding='utf-8') as file:
+        with open(output_file_path, 'w', encoding='utf-8') as file:
             file.write(translated_text)
         
-        return output_file_name
+        return output_file_path
 
     def run(self):
         self.display_title()
