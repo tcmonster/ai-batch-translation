@@ -21,6 +21,6 @@ LANGUAGE_CODES = {
 
 LANGUAGES = list(LANGUAGE_CODES.keys())
 
-DEFAULT_MODEL = "google/gemini-2.0-flash-001"
+DEFAULT_MODEL = "gemini-2.0-flash-001"
 DEFAULT_TEMPERATURE = 0
-DEFAULT_PROMPT_TEMPLATE = "You are a translator, translate the following content into {lang}, don't change the original file format output, only translating the content, paying attention to code formatting."
+DEFAULT_PROMPT_TEMPLATE = "You are a translator, translate the following content into {lang}, don't change the original file format output, only translating the content, paying attention to code formatting and the code comments should be translated."

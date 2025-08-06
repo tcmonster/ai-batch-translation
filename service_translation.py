@@ -14,11 +14,19 @@ class TranslationService:
         try:
             encoding = tiktoken.encoding_for_model(model)
         except KeyError:
-            # 对于 Gemini 模型，使用 cl100k_base 分词器
-            if 'gemini' in model.lower():
+            # 对于不被识别的模型，根据模型名称特征选择合适的分词器
+            model_lower = model.lower()
+            if 'gemini' in model_lower:
                 encoding = tiktoken.get_encoding('cl100k_base')
+            elif 'gpt-4' in model_lower or 'gpt-3.5' in model_lower:
+                # 对于 GPT-4 和 GPT-3.5 系列的变体，使用 cl100k_base
+                encoding = tiktoken.get_encoding('cl100k_base')
+            elif 'gpt-3' in model_lower or 'davinci' in model_lower:
+                # 对于旧版 GPT-3 模型
+                encoding = tiktoken.get_encoding('p50k_base')
             else:
-                raise
+                # 默认使用最新的编码器
+                encoding = tiktoken.get_encoding('cl100k_base')
         return len(encoding.encode(text))
 
     def translate(self, input_content, target_language, config):
